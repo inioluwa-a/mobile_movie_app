@@ -1,5 +1,4 @@
-import {ActivityIndicator, FlatList, Image, ScrollView, Text, View} from "react-native";
-import {Link} from "expo-router";
+import {ActivityIndicator, FlatList, Image, ScrollView, Text, View, } from "react-native";
 import {images} from "@/constants/images";
 import {icons} from "@/constants/icons";
 import SearchBar from "@/components/SearchBar";
@@ -7,6 +6,7 @@ import { useRouter} from "expo-router";
 import useFetch from "@/services/useFetch";
 import { fetchMovies } from "@/services/api";
 import MovieCard from "@/components/MovieCard";
+
 
 export default function Index() {
     const router = useRouter();
@@ -39,12 +39,12 @@ export default function Index() {
             ) : (
                  <View className="flex-1 mt-5">
                 <SearchBar
-
                     onPress={() => router.push('/search')}
                     placeholder="Search for a movie"
+                    
                 />
 
-                 <>
+                <>
                 <Text className="text-white text-lg font-bold mt-10 mb-3">
                     Latest Movies
                 </Text>

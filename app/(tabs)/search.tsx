@@ -1,13 +1,11 @@
 import { images } from '@/constants/images';
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, ActivityIndicator } from 'react-native';
-import { Image } from 'expo-image';
+import { View, Text, Image,  FlatList, ActivityIndicator } from 'react-native';
 import MovieCard from '@/components/MovieCard';
 import useFetch from '@/services/useFetch';
 import { fetchMovies } from '@/services/api';
 import { icons } from '@/constants/icons';
 import SearchBar from '@/components/SearchBar';
-
 
 
 const Search = () => {
@@ -39,24 +37,26 @@ const Search = () => {
 
   return (
     <View className="flex-1 bg-primary">
-        <Image source={images.bg} className="flex-1 absolute w-full z-0"  contentFit="cover"/>
+      <Image
+        source={images.bg}
+        className="flex-1 absolute w-full z-0"
+        resizeMode="cover"
+      />
 
-        <FlatList
-            data={movies}
-            renderItem={({ item }) => <MovieCard {...item} />}
-            keyExtractor={(item) => item.id.toString()}
-            className="px-5"
-            numColumns={3}
-            columnWrapperStyle={{ 
-              justifyContent: 'center',
-              gap: 16,
-              marginVertical: 16
-             }}
-             contentContainerStyle={{ paddingBottom: 100 }}
-             showsVerticalScrollIndicator={false}
-            
-            ListHeaderComponent={
-            <>
+      <FlatList
+        data={movies}
+        renderItem={({ item }) => <MovieCard {...item} />}
+        keyExtractor={(item) => item.id.toString()}
+        className="px-5"
+        numColumns={3}
+        columnWrapperStyle={{
+          justifyContent: "center",
+          gap: 16,
+          marginVertical: 16,
+        }}
+        contentContainerStyle={{ paddingBottom: 100 }}
+        ListHeaderComponent={
+          <>
             <View className="w-full flex-row justify-center mt-20 items-center">
 
               <Image source={icons.logo} className="w-12 h-10" />
@@ -64,17 +64,20 @@ const Search = () => {
             </View>
 
             <View className="my-5">
-
-              <SearchBar 
-              placeholder="Search for a movie..." 
-              value={searchQuery}
-              onChangeText={(text: string) => setSearchQuery(text)}
+              <SearchBar
+                placeholder="Search for a movie..."
+                value={searchQuery}
+                onChangeText={(text: string) => setSearchQuery(text)}
               />
-
             </View>
 
             {loading && (
-              <ActivityIndicator size="large" color="#000fff" className="my-3 " />
+              <ActivityIndicator
+                size="large"
+                color="#0000ff"
+                className="my-3 "
+              />
+
             )}
 
             {error && (
@@ -83,20 +86,24 @@ const Search = () => {
               </Text>
             )}
 
-            {!loading && !error && searchQuery.trim() && movies.length === 0 && (
+            {!loading && !error && searchQuery.trim() && movies?.length > 0 && (
               <Text className="text-white font-bold">
-               Search Result for 
-               </Text>
-
-              //  <Text className="text-accent">{searchQuery}
-              //  </Text>
-              
+                Search Result for {""}
+                <Text className="text-accent">{searchQuery}</Text>
+              </Text>
             )}
-            </>
-            }
-
-          />
-            
+          </>
+        }
+        ListEmptyComponent={
+          !loading && !error ? (
+            <View className="mt-10 px-5">
+            <Text className="text-gray-500 text-center">
+              {searchQuery.trim() ? "No movies found." : "Start typing to search for movies."}
+            </Text>
+            </View>
+          ) : null
+        }
+      />
     </View>
   );
 };
