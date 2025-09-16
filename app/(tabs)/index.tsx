@@ -54,7 +54,7 @@ export default function Index() {
                     renderItem={({item}) => (
 
 
-                        <MovieCard 
+                        <MovieCard {...item} 
                         
                         />
                     )}

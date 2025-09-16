@@ -5,7 +5,7 @@ type Props = {};
 
 const Search = (props: Props) => {
   return (
-    <View>
+    <View >
       <Text>Search</Text>
     </View>
   );
